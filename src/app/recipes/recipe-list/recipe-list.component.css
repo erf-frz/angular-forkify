@@ -1,0 +1,18 @@
+
+.list{
+  height: 100vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+app-recipe-item:hover{
+  cursor: pointer;
+
+}
+
+.loading-spinner{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5%;
+}

@@ -1,0 +1,12 @@
+<div class="backdrop">
+  <div class="queries-box">
+    <div class="row">
+      <h2>Available Search Options:</h2>
+      <ul>
+        <li *ngFor="let foodItem of foodList">{{foodItem}}</li>
+      </ul>
+    </div>
+  </div>
+  <button class="btn-close" (click)="onClose()">close</button>
+</div>
+

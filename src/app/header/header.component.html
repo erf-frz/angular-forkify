@@ -1,0 +1,28 @@
+<div class="logo-shopping">
+  <img src="../../assets/logo.png" alt="logo" class="logo">
+  <div class="buttons">
+    <button class="home" (click)="toHome()">Home</button>
+    <button class="home" (click)="toSL()">Shopping List</button>
+  </div>
+</div>
+<header>
+  <div class="row">
+    <form (ngSubmit)="onSubmit()" [formGroup]="searchForm">
+      <input type="text" class="search-bar" placeholder="search for recipes..."
+      name="foodItem"
+      formControlName="foodItem"
+      #foodSearchItem>
+      <button class="btn" type="submit">Search</button>
+    </form>
+  </div>
+  <div class="row">
+    <h4>(Search from <button class="btn-show" (click)="displayQueries()"><i>this</i>
+     </button> list of foods.)</h4>
+  </div>
+  <app-queries *ngIf="queryDisplayed"
+  (close)="handleClose()"></app-queries>
+</header>
+<router-outlet></router-outlet>
+
+
+

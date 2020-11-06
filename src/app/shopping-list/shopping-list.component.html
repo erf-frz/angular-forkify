@@ -1,0 +1,36 @@
+<div class="wrapper">
+<div class="logo-shopping">
+  <img src="../../assets/logo.png" alt="logo" class="logo">
+  <button class="home" (click)="toHome()">Home</button>
+</div>
+  <div class="title">
+    <h1>Shopping List</h1>
+  </div>
+  <div class="input-fields">
+      <label for="name">name</label>
+      <input type="text" class="ingredient" #name>
+
+      <label for="amount"> amount</label>
+      <input type="number" class="amount" #amount>
+
+      <label for="unit">unit</label>
+      <input type="text" class="unit" #unit>
+
+
+  </div>
+
+  <div class="buttons">
+     <button class="btn btn-add" type="button">Add</button>
+     <button class="btn btn-clear" type="button">Delete</button>
+     <button class="btn btn-remove" type="button">Clear</button>
+  </div>
+  <div class="shopping-items">
+    <div class="shopping-item" *ngFor="let ing of ingredients; let i = index">
+    <span>{{i+1}} ) </span> <p class="ing-name">{{ing}}</p>
+      <!-- <p class="ing-unit">{{ing.unit}}</p>
+      <p class="ing-amount">{{ing.count}}</p> -->
+    </div>
+
+  </div>
+
+</div>

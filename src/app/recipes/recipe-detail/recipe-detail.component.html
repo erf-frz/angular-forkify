@@ -1,0 +1,36 @@
+<div class="loading-holder" *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="wrapper" *ngIf="recipe!==undefined">
+  <div class="image">
+    <img [src]="recipe.image_url" [alt]="recipe.title" class="recipe-image">
+  </div>
+   <div class="title">
+     <h1>{{recipe.title}}</h1>
+   </div>
+   <div class="recipe-info">
+      <div class="basic-info">
+        <p><b>prepration time: </b> {{calculateTime(recipe.ingredients)}} minutes</p>
+        <p><b>serves: </b> 4</p>
+      </div>
+      <h3>Ingredients:</h3>
+      <div class="ingredients">
+        <ul>
+          <li *ngFor="let ing of recipe.ingredients">{{ing}}</li>
+        </ul>
+      </div>
+      <div class="button">
+        <button class="btn" (click)="onAddToSL()">Add Ingredients to the shopping list</button>
+      </div>
+      <div class="recipe-link">
+        <h3>Instructions:</h3>
+        to learn about the recipe, click on this link: <br/>
+       <a href="{{recipe.source_url}}"
+        target="blank">{{recipe.source_url}}
+       </a>
+
+      </div>
+   </div>
+</div>
+
+

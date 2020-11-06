@@ -1,0 +1,13 @@
+.row{
+  width:100%;
+  display: grid;
+  grid-template-columns: 0.8fr 2.2fr;
+  background-color: rgb(243, 242, 242);
+
+}
+
+h3{
+ margin-left:4%;
+ margin-top: 4%;
+
+}

@@ -1,0 +1,11 @@
+<a class="recipe-item"
+[routerLink]="[rId]"
+routerLinkActive="active" >
+  <img src="{{recipe.image_url}}" alt="{{recipe.title}}" class="item-pic">
+  <span>
+    <h3>{{recipe.title | shorten}}</h3>
+    <h5>by <span class="name">{{recipe.publisher}}</span></h5>
+  </span>
+
+</a>
+<!-- (click)="onSelect()" -->

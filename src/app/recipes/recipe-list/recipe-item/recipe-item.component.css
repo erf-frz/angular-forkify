@@ -1,0 +1,35 @@
+.recipe-item{
+  width:100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border-bottom: 1px solid rgb(197, 197, 197);
+  padding-top: 2%;
+  text-decoration: none;
+  color:black
+}
+
+.recipe-item:hover{
+  background-color: rgb(231, 230, 230);
+}
+
+.item-pic{
+  width:60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline;
+  margin: 5%;
+}
+
+span{
+  display: grid;
+  grid-template-rows: 0.8fr 1.2fr;
+}
+
+.name{
+  color:#5b2975;
+  font-size: 16px;
+}
+
+.active{
+   background-color: rgb(231, 230, 230);
+}

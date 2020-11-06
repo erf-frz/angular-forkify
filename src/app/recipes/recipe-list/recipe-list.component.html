@@ -1,0 +1,16 @@
+ <div class="loading-spinner" *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<div class="list" *ngIf="!isLoading">
+
+<app-recipe-item
+*ngFor="let recipeEl of recipes"
+[recipe]="recipeEl"
+[rId]="recipeEl.recipe_id"
+(click)="recipeSelected(recipeEl.recipe_id)">
+</app-recipe-item>
+
+</div>
+
+
+<!-- (recipeSelected)="onRecipeSelected(recipeEl) -->
