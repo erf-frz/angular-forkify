@@ -1,5 +1,5 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Ingredient } from '../ingredient.model';
@@ -21,19 +21,22 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   isLoading = false;
 
-  private subscription:Subscription;
+  
 
   constructor(private dataStorageService:DataStorageService,
               private recipeService:RecipesService,
               private route:ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.isLoading = true;
-    this.subscription = this.dataStorageService.selectedRecipe.subscribe(recipe =>{
-      if(recipe ===undefined){
+  ngOnInit() {
+     this.isLoading = true;
+
+     this.dataStorageService.selectedRecipe.subscribe(recipe =>{
+      this.isLoading = false;
+      if(recipe === undefined){
         return null;
       }else{
-        this.isLoading = false;
+        // localStorage.removeItem('recipe');
+        // localStorage.setItem('recipe',JSON.stringify(recipe));
         this.recipe = recipe;
         this.route.params.subscribe((params:Params)=>{
         this.recipe.recipe_id = params['id'];
@@ -45,11 +48,12 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(){
-     this.subscription.unsubscribe();
+
   }
 
   onAddToSL(){
-    const ingredients = this.recipe.ingredients;
+    let ingredients = this.recipe.ingredients;
+    //console.log(ingredients);
     this.recipeService.addToSl(ingredients);
 
   }
@@ -61,6 +65,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     return time;
 
   }
+
+  onSaveRecipe(){
+    const likedRecipe = this.recipe;
+    this.recipeService.addLikedRecipe(likedRecipe);
+    console.log(likedRecipe);
+  }
+
+
 
 
 }

@@ -1,90 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
 .wrapper{
   width:100%;
   height: 100vh;
-  background: url('https://images.pexels.com/photos/5632371/pexels-photo-5632371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  background:linear-gradient(to left, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.349)), url('../../assets/pexels-karolina-grabowska-4033404.jpg');
   background-size: cover;
 }
 
 .title{
   padding-top: 5%;
   padding-left:4%;
-}
-
-.input-fields{
-  display: flex;
-  flex-direction: row;
-  margin-top: 3%;
-  margin-left: 4%;
-}
-
-.ingredient{
-  margin-right: 6%;
-  width: 300px;
-  outline:  rgb(41, 180, 214);
-  padding:5px;
-  font-size: 18px;
-}
-
-/* .amount{
-  width:80px;
-  outline:  rgb(41, 180, 214);
-} */
-
-.buttons{
-  margin-top: 3%;
-  margin-left: 8%;
-}
-
-.btn{
-  width: 80px;
-  padding:8px;
-  font-size: 18px;
-  border-radius: 5%;
-  margin-right: 2%;
-  border-radius: 5%;
-  transition: background-color 0.8s, color 0.8s;
-  outline: none;
-}
-
-.btn:hover{
-  color: antiquewhite;
+  color: rgb(255, 255, 255);
 }
 
 
-.btn-add{background-color: rgb(63, 161, 63);}
-.btn-add:hover{background-color:  rgb(50, 128, 50);}
-.btn-clear{background-color: rgb(48, 211, 252);}
-.btn-clear:hover{background-color: rgb(41, 180, 214);}
-.btn-remove{background-color: rgb(255, 132, 132);}
-.btn-remove:hover{background-color: rgb(211, 109, 109);}
-
-label{
-  margin-right: 1%;
-  margin-left: 1%;
-}
 
 .shopping-items{
   overflow-y: scroll;
-  height: 50%;
-  margin-top: 3%;
+  height: 75%;
+  margin-left: 54%;
+
+  width:33.5%;
+  margin-top: -11%;
 }
 
 .shopping-item{
-  width: 400px;
-  background-color: rgba(0, 0, 0, 0.274);
+  width: 95%;
   display: flex;
   flex-direction: row;
   justify-content:flex-start;
   padding: 0.5%;
   font-size: 18px;
   margin-top: 1.5%;
-  margin-left: 5%;
+  margin-left:2%;
   border-radius: 2%;
+  background-color: rgba(146, 146, 146, 0.459);
+  font-family: 'Architects Daughter', cursive;
 }
 
 .shopping-item:hover,
 .shopping-item:active{
-  background-color: rgba(0, 0, 0, 0.459);
+  background-color: rgba(68, 68, 68, 0.459);
 }
 
 
@@ -100,22 +55,25 @@ label{
 }
 
 .home{
-  margin-right: 15px;
+  margin-right: 10px;
   cursor: pointer;
   background-color: rgba(0,0,0,0.4);
-  padding-left: 2%;
-  padding-right: 2%;
-  font-size: 18px;
-  margin-top: 1%;
-  border-radius: 5%;
+  border-radius: 50%;
   color: white;
   outline: none;
-  height: 50px;
-  width: 100px;
 }
 
-.home:hover{
+.home:hover,.like-btn:hover{
   color: black;
   background-color: rgba(255, 255, 238,0.6);
 }
 
+.btns{
+  margin-top: 1%;
+  margin-right: 1%;
+}
+
+.like-btn{
+   background-color: rgba(0,0,0,0.4);
+   color: white;
+}

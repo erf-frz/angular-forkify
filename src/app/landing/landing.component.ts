@@ -21,4 +21,8 @@ export class LandingComponent implements OnInit {
   toSearch(){
     this.router.navigate(['/search']);
   }
+
+  toLikes(){
+    this.router.navigate(['/liked']);
+  }
 }

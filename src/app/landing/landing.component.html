@@ -2,7 +2,14 @@
   <div class="text-box">
     <div class="logo-shopping">
       <img src="../../assets/logo.png" alt="logo" class="logo">
-      <button class="shopping-list" (click)="toShoppingList()">Shopping List</button>
+      <div class="btns">
+        <button mat-icon-button class="shopping-list" (click)="toShoppingList()" title="shopping list">
+          <mat-icon>shopping_cart</mat-icon>
+        </button>
+        <button mat-icon-button class="like-btn" title="Liked Recipes" (click)="toLikes()">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
     </div>
     <h1>FORKIFY APP</h1>
     <h3>Search for Hundreds of Food Recipes in One Place</h3>

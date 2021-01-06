@@ -1,0 +1,30 @@
+<div class="btns">
+  <button mat-icon-button class="home btn" (click)="toHome()" title="Home Page">
+    <mat-icon>home</mat-icon>
+  </button>
+  <button mat-icon-button class="shopping-list btn" (click)="toShoppingList()" title="shopping list">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+</div>
+<div class="wrapper">
+  <h1>Saved Recipes</h1>
+  <div *ngIf="recipes.length!==0; else empty" class="groups">
+    <ul class="recipes">
+      <li class="recipe">
+        <app-recipe-item *ngFor="let recipeEl of recipes" [recipe]="recipeEl" [rId]="recipeEl.recipe_id"
+          (click)="recipeSelected(recipeEl.recipe_id)">
+        </app-recipe-item>
+      </li>
+    </ul>
+    <div class="recipe-detail">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    There is currently no saved recipe.
+  </ng-template>
+</div>
+
+
+

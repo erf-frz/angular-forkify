@@ -3,8 +3,8 @@
   height:100vh;
   overflow-y: scroll;
 }
-.recipe-image
-{
+
+.recipe-image{
   width:80%;
   max-height:300px;
   padding-top: 3%;
@@ -14,6 +14,7 @@
 display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .title{
@@ -23,7 +24,7 @@ display: flex;
 }
 
 h1{
-  background: linear-gradient(rgb(199, 189, 97), rgb(245, 233, 125));
+  background: linear-gradient(rgb(168, 199, 97), rgb(169, 245, 125));
   width:400px;
   padding:10px;
   position: relative;
@@ -48,9 +49,9 @@ h3{
   height:60px;
   padding:10px;
   font-size: 18px;
-  border:1px solid rgb(199, 189, 97);
+  border:1px solid  rgb(144, 206, 108);
   border-radius: 10px;
-  color:rgb(190, 179, 77);
+  color:rgb(144, 206, 108);
   font-weight: 100;
   background-color: transparent;
   transition: back-ground 0.5s, color 0.5s;
@@ -66,7 +67,7 @@ h3{
 
 .btn:hover{
   cursor: pointer;
-  background:linear-gradient(rgb(199, 189, 97), rgb(245, 233, 125));
+  background:linear-gradient(rgb(168, 199, 97), rgb(169, 245, 125));
   color:black;
 }
 
@@ -94,5 +95,26 @@ li{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.like-btn{
+  margin-left:95%;
+  display:inline;
+  margin-top: -28%;
+  margin-bottom: 23%;
+  margin-right: 2%;
+  background-color: rgba(0, 0, 0, 0.267);
+}
+
+.like-btn:hover{
+   background-color: rgba(0, 0, 0, 0.144);
+}
+
+mat-icon{
+  color:white;
+}
+
+mat-icon:active{
+  color:black;
 }
 

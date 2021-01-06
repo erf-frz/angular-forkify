@@ -1,42 +1,43 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Ingredient } from '../recipes/ingredient.model';
+import { ModifiedIngredient } from '../recipes/ingredient.model';
 
-
-  // interface IngredientObj{
-  //   count:number;
-  //   unit:string;
-  //   ingredient:string;
-  // }
 
 @Injectable({providedIn:'root'})
 export class ShoppingListService{
-  ingredients:Ingredient[] = [];
-  ingredientsChanged = new Subject<Ingredient[]>();
+
+  private ingredients:ModifiedIngredient[] = [];
+
+  ingredientsChanged = new Subject<ModifiedIngredient[]>();
+
+    startedEditing = new Subject<number>();
 
 
 
-  addIngredients(ingredients:Ingredient[]){
-    this.ingredients.push(...ingredients);
+
+  getIngredients(){
+    return this.ingredients.slice();
+  }
+
+  addIngredients(ingredients:string[]){
+    this.ingredients =this.editIngredients(ingredients);
+    this.ingredientsChanged.next(this.ingredients);
+  }
+
+   addIngredient(ingredient:ModifiedIngredient){
+    this.ingredients.push(ingredient);
     this.ingredientsChanged.next(this.ingredients.slice());
-    //this.editIngredients(ingredients);
-    console.log(ingredients);
   }
 
-  addIngredient(){
-
-  }
-
-
-  editIngredients(ingredients:Ingredient[]){
+  editIngredients(ingredients:string[]){
 
        const unitsLong = ['tablespoons','tablespoon','ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
        const unitsShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
        const units =[...unitsShort, 'kg', 'g'];
 
-     ingredients.map(el =>{
+    const newIngredients =  ingredients.map(ing =>{
        // uniform units
-        let ingredient= el.ingredient.toLowerCase();
+          let ingredient= ing.toLowerCase();
         unitsLong.forEach((unit,index)=>{
         ingredient = ingredient.replace(unit, unitsShort[index]);
         });
@@ -45,8 +46,8 @@ export class ShoppingListService{
         ingredient = ingredient.replace(/ *\([^)]*\) */g, '');
 
       //parse the ingredients into count,unit and ingredient
-      const arrIng = ingredient.split('');
-      const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
+      const arrIng = ingredient.split(' ');
+      const unitIndex = arrIng.findIndex(el => units.includes(el));
 
       let objIng;
         if (unitIndex > -1){
@@ -55,10 +56,10 @@ export class ShoppingListService{
 
             let count;
             if (arrCount.length ===1){
-                // count = arrIng[0];   just because of one of the examples that the unt was 1-1/2
+                // count = arrIng[0];   just because of one of the examples that the unit was 1-1/2
                 count = eval(arrIng[0].replace('-', '+'));
             }else{
-              count =eval(arrIng.slice(0, unitIndex).join('+'));
+              count = eval(arrIng.slice(0, unitIndex).join('+'));
             }
           objIng ={
             count,
@@ -85,8 +86,25 @@ export class ShoppingListService{
         }
           return objIng;
     });
+   console.log(newIngredients);
+   return newIngredients;
 
-    this.ingredients = ingredients;
 
  }
+
+
+  getIngredient(index:number){
+    return this.ingredients[index];
+  }
+
+  updateIngredient(index:number, newIngredient:ModifiedIngredient){
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
+  deleteIngredient(index:number){
+    this.ingredients.splice(index,1);
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
 }

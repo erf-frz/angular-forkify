@@ -1,19 +1,26 @@
 .backdrop{
-  width: 100%;
-  height: auto;
-  background:rgba(0,0,0,0.75) ;
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 50;
+  background-color: rgba(0,0,0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .queries-box{
-  width:70%;
+  position: fixed;
+  width:90%;
   z-index: 100;
   background-color: white;
   margin-top: 3%;
   margin-bottom: 3%;
+  height: 100vh;
+  overflow-x: scroll;
+
 }
 
 .row{
@@ -29,16 +36,19 @@ ul{
 }
 
 .btn-close{
-  background-color: white;
+  background-color: black;
+  color: white;
   border-radius: 10%;
   width:80px;
   height: 50px;
-  align-self:flex-end;
   margin-bottom: 3%;
   margin-left: 3%;
   font-size: 20px;
   cursor: pointer;
   outline: none;
+  margin-top: 2%;
+  margin-left:90%;
+
 }
 
 h2{

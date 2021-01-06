@@ -16,6 +16,11 @@ import { ShortenPipe } from './shorten.pipe';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
+import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from  '@angular/material/icon';
+import { AlertComponent } from './alert/alert.component';
+import { LikePageComponent } from './like-page/like-page.component';
+import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 
 
 @NgModule({
@@ -31,14 +36,21 @@ import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.compon
     ShortenPipe,
     LoadingSpinnerComponent,
     ShoppingListComponent,
-    RecipeStartComponent
+    RecipeStartComponent,
+    AlertComponent,
+    LikePageComponent,
+    ShoppingEditComponent,
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,29 @@
+<form #form="ngForm" (ngSubmit)="onAddItem(form)">
+  <div class="input-fields">
+    <label for="name">name</label>
+    <input type="text" class="ingredient" name="name" ngModel required>
+
+    <label for="unit"> unit</label>
+    <select name="unit" class="unit" ngModel>
+      <option value="none"></option>
+      <option value="tbsp">tbsp</option>
+      <option value="tsp">tsp</option>
+      <option value="oz">oz</option>
+      <option value="cup">cup</option>
+      <option value="pound">pound</option>
+      <option value="g">g</option>
+      <option value="kg">kg</option>
+
+    </select>
+
+    <label for="amount"> amount</label>
+    <input type="text" class="amount" name="amount" ngModel>
+  </div>
+</form>
+
+
+<div class="buttons">
+  <button class="btn btn-add" type="submit" [disabled]="!form.valid">{{editMode? 'Update':'Add'}}</button>
+  <button class="btn btn-clear" type="button" (click)="onDelete()">Delete</button>
+  <button class="btn btn-remove" type="button" (click)="onClear()">Clear</button>
+</div>

@@ -17,29 +17,27 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   recipes: Recipe[] = [];
   subscription:Subscription;
 
-  // @Output()
-  // recipeWasSelected = new EventEmitter<Recipe>();
-
   isLoading = false;
 
   ngOnInit() {
 
-   this.isLoading = true;
-
-   this.subscription =  this.recipesService.recipesChanged.subscribe((recipes:Recipe[]) => {
-      this.isLoading = false;
-      this.recipes = recipes;
-      //localStorage.setItem('recipes', JSON.stringify(recipes));
-      });
-
-      // if(this.recipes === []){
-      //   this.isLoading = false;
-      //   this.recipes = JSON.parse(localStorage.getItem('recipes'));
-      // }
+    const recipes = JSON.parse(localStorage.getItem('recipes'));
+    console.log(recipes);
+    //this.isLoading = true;
+     if(recipes === null){
+        this.isLoading = true;   
+       this.recipesService.recipesChanged.subscribe((recipes:Recipe[]) => {
+            this.isLoading = false;
+             this.recipes = recipes;
+          });
+     }
+     else{
+       this.recipes = recipes;
+     }
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+    //this.subscription.unsubscribe();
   }
 
   recipeSelected(id:string){
@@ -50,9 +48,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   }
 
-  // onRecipeSelected(recipe:Recipe){
-  //   this.recipeWasSelected.emit(recipe);
-  // }
 
 
 }

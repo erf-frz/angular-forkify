@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Recipe } from '../../recipe.model';
 
@@ -9,7 +9,7 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent implements OnInit {
 
-  constructor(private dataStorageService:DataStorageService){}
+  constructor(){}
 
   @Input()
   recipe:Recipe;
@@ -17,16 +17,10 @@ export class RecipeItemComponent implements OnInit {
   @Input()
   rId:string;
 
-  // @Output()
-  // recipeSelected = new EventEmitter<void>();
 
   ngOnInit(): void {
 
   }
 
-  // onSelect(){
-  //   //this.recipeSelected.emit();
-  //   this.dataStorageService.selectedRecipe.next(this.recipe);
-  // }
 
 }

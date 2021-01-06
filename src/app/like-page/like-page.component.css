@@ -1,0 +1,46 @@
+.wrapper{
+  margin-left:4%;
+  font-size:110%;
+}
+
+h1{
+  padding-left:36%;
+  margin-top:4%;
+  margin-bottom: 4%
+}
+
+.btns{
+  display: flex;
+  justify-content: flex-end;
+  margin:1%;
+}
+
+.home{
+  margin-right: 0.5%;
+}
+
+.btn:hover{
+  color: white;
+  background-color: rgba(0, 0, 0, 0.144);
+}
+
+li{
+  list-style: none;
+}
+
+.groups{
+  display: flex;
+  flex-direction: row;
+}
+
+.recipes{
+  width:30%;
+}
+
+.recipe-detail{
+  width:70%;
+}
+
+app-recipe-item:hover{
+  cursor: pointer;
+}

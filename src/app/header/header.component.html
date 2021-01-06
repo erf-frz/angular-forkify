@@ -1,8 +1,15 @@
 <div class="logo-shopping">
   <img src="../../assets/logo.png" alt="logo" class="logo">
   <div class="buttons">
-    <button class="home" (click)="toHome()">Home</button>
-    <button class="home" (click)="toSL()">Shopping List</button>
+    <button mat-icon-button class="home" (click)="toHome()" title="Home Page">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button class="home" (click)="toSL()" title="Shopping List">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+    <button mat-icon-button class="home" title="Liked Recipes" (click)="toLikes()">
+      <mat-icon>favorite</mat-icon>
+    </button>
   </div>
 </div>
 <header>
@@ -14,6 +21,8 @@
       #foodSearchItem>
       <button class="btn" type="submit">Search</button>
     </form>
+    <app-alert [message]="errorMessage" *ngIf="errorMessage" (close)="onHandleError()"></app-alert>
+
   </div>
   <div class="row">
     <h4>(Search from <button class="btn-show" (click)="displayQueries()"><i>this</i>

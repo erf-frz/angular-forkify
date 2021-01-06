@@ -1,7 +1,7 @@
 import { Component,  OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { RecipesService } from '../recipes/recipes.service';
 import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { DataStorageService } from '../shared/data-storage.service';
 export class HeaderComponent implements OnInit{
 
   constructor(private dataStorageService:DataStorageService,
+    private recipeService:RecipesService,
               private router:Router,
               private route:ActivatedRoute) { }
 
@@ -25,17 +26,13 @@ export class HeaderComponent implements OnInit{
   @ViewChild('foodSearchItem')
   foodSearchItem: FormControl;
 
-  // error:string = null;
+  errorMessage:string = null;
 
 
   ngOnInit() {
     this.searchForm = new FormGroup({
       'foodItem': new FormControl(null, Validators.required)
     });
-
-    // this.dataStorageService.error.subscribe((error:string)=>{
-    //   this.error = error;
-    // })
   }
 
 
@@ -49,19 +46,24 @@ export class HeaderComponent implements OnInit{
   }
 }
 
-  // onSubmit(form:NgForm){
-
-  //   const food = form.value.foodItem;
-  //   console.log(form);
-  //   this.dataStorageService.searchRecipes(food);
-  //   this.router.navigate(['recipes'],{relativeTo:this.route});
-  // }
 
   onSubmit(){
+    if(localStorage.getItem('recipes')){
+      localStorage.removeItem('recipes');
+    }
     const food = this.searchForm.value.foodItem;
-    console.log(this.searchForm);
     if(food !==null){
-    this.dataStorageService.searchRecipes(food);
+    this.dataStorageService.searchRecipes(food)
+    .subscribe(recipes =>{
+       console.log(recipes);
+      this.recipeService.setRecipes(recipes);
+       localStorage.setItem('recipes', JSON.stringify(recipes));
+       } , error =>{
+          console.log(error);
+          this.errorMessage = 'Please select a food item from the bellow list.';
+          error.error = this.errorMessage;
+
+       });
     this.searchForm.reset();
     this.router.navigate(['recipes'],{relativeTo:this.route});
     }
@@ -84,4 +86,14 @@ export class HeaderComponent implements OnInit{
   toSL(){
     this.router.navigate(['/shopping-list']);
   }
+
+   toLikes(){
+    this.router.navigate(['/liked']);
+  }
+
+  onHandleError(){
+    this.errorMessage = null;
+  }
+
+
 }
