@@ -22,10 +22,8 @@ export class RecipeListComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     const recipes = JSON.parse(localStorage.getItem('recipes'));
-    console.log(recipes);
-    //this.isLoading = true;
      if(recipes === null){
-        this.isLoading = true;   
+        this.isLoading = true;
        this.recipesService.recipesChanged.subscribe((recipes:Recipe[]) => {
             this.isLoading = false;
              this.recipes = recipes;
@@ -42,7 +40,7 @@ export class RecipeListComponent implements OnInit, OnDestroy {
 
   recipeSelected(id:string){
     this.dataStorageService.getRecipe(id).subscribe(recipe =>{
-    console.log(recipe);
+    //console.log(recipe);
     this.dataStorageService.selectedRecipe.next(recipe);
     });
 

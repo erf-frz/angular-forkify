@@ -111,10 +111,8 @@ li{
 }
 
 mat-icon{
-  color:white;
-}
-
-mat-icon:active{
   color:black;
 }
+
+
 

@@ -31,7 +31,14 @@ export class RecipesService{
  }
 
  addLikedRecipe(recipe:Recipe){
-    this.likedRecipes.push(recipe);
+   if(!this.likedRecipes.includes(recipe)){
+      this.likedRecipes.push(recipe);
+   }else{
+     let index = this.likedRecipes.indexOf(recipe);
+     console.log(index);
+     this.likedRecipes.splice(index,1);
+   }
+
  }
 
  getLikedRecipes(){

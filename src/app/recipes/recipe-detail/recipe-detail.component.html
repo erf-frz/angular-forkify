@@ -4,9 +4,9 @@
 <div class="wrapper" *ngIf="recipe!==undefined">
   <div class="image">
     <img [src]="recipe.image_url" [alt]="recipe.title" class="recipe-image">
-    <button mat-icon-button class="like-btn" title="Like"
+    <button mat-icon-button class="like-btn" title="Like" #likeBtn
     (click)="onSaveRecipe()">
-      <mat-icon>favorite</mat-icon>
+      <mat-icon>favorite_border</mat-icon>
     </button>
   </div>
    <div class="title">

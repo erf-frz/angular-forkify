@@ -30,11 +30,19 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
         this.shoppingListService.ingredientsChanged.subscribe(
         ( ingredients:ModifiedIngredient[]) => {
         this.ingredients = ingredients;
-        console.log(this.ingredients);
+        //console.log(this.ingredients);
          });
         localStorage.setItem('ingredients', JSON.stringify(this.ingredients));
 
   }
+
+
+
+
+
+
+
+
 
    toHome(){
     this.router.navigate(['/']);

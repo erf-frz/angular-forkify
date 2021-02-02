@@ -1,4 +1,4 @@
-<form #form="ngForm" (ngSubmit)="onAddItem(form)">
+<form (ngSubmit)="onAddItem(form)" #form="ngForm">
   <div class="input-fields">
     <label for="name">name</label>
     <input type="text" class="ingredient" name="name" ngModel required>
@@ -19,11 +19,12 @@
     <label for="amount"> amount</label>
     <input type="text" class="amount" name="amount" ngModel>
   </div>
+  <div class="buttons">
+    <button class="btn btn-add" type="submit" [disabled]="!form.valid">{{editMode? 'Update':'Add'}}</button>
+    <button class="btn btn-clear" type="button" (click)="onDelete()" *ngIf="editMode">Delete</button>
+    <button class="btn btn-remove" type="button" (click)="onClear()">Clear</button>
+  </div>
 </form>
 
 
-<div class="buttons">
-  <button class="btn btn-add" type="submit" [disabled]="!form.valid">{{editMode? 'Update':'Add'}}</button>
-  <button class="btn btn-clear" type="button" (click)="onDelete()">Delete</button>
-  <button class="btn btn-remove" type="button" (click)="onClear()">Clear</button>
-</div>
+
