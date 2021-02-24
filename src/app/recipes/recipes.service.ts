@@ -31,14 +31,14 @@ export class RecipesService{
  }
 
  addLikedRecipe(recipe:Recipe){
-   if(!this.likedRecipes.includes(recipe)){
-      this.likedRecipes.push(recipe);
+   if(this.likedRecipes.find( el => el.recipe_id === recipe.recipe_id)){
+     // if the recipe is already saved
+     const savedRecipeIndex = this.likedRecipes.findIndex(el =>el.recipe_id === recipe.recipe_id);
+     this.likedRecipes.splice(savedRecipeIndex,1);
    }else{
-     let index = this.likedRecipes.indexOf(recipe);
-     console.log(index);
-     this.likedRecipes.splice(index,1);
+     //if the recipe is not saved yet
+      this.likedRecipes.push(recipe);
    }
-
  }
 
  getLikedRecipes(){

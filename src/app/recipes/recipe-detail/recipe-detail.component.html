@@ -8,11 +8,11 @@
     (click)="onSaveRecipe()">
       <mat-icon>favorite_border</mat-icon>
     </button>
+
   </div>
-   <div class="title">
-     <h1>{{recipe.title}}</h1>
-   </div>
+
    <div class="recipe-info">
+      <h1>{{recipe.title}}</h1>
       <div class="basic-info">
         <p><b>prepration time: </b> {{calculateTime(recipe.ingredients)}} minutes</p>
         <p><b>serves: </b> 4</p>
@@ -34,6 +34,8 @@
        </a>
 
       </div>
+
+
    </div>
 </div>
 

@@ -3,7 +3,7 @@ import {  Injectable } from '@angular/core';
 import { Recipe } from '../recipes/recipe.model';
 import { RecipesService } from '../recipes/recipes.service';
 import {  map } from 'rxjs/Operators';
-import { BehaviorSubject, Subject} from 'rxjs';
+import { Subject} from 'rxjs';
 
 
 
@@ -20,7 +20,7 @@ errorMessage:string = null;
 
 
   searchRecipes(query:string){
-     return this.http.get<{count:number, recipes:Recipe[]}>('https://cors-anywhere.herokuapp.com/https://forkify-api.herokuapp.com/api/search?q='+ query)
+     return this.http.get<{count:number, recipes:Recipe[]}>('https://forkify-api.herokuapp.com/api/search?q='+ query)
      .pipe(map(recipes =>{
        return recipes.recipes;
      }))

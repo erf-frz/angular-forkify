@@ -10,9 +10,10 @@ import { RecipesService } from './recipes.service';
 })
 export class RecipesComponent implements OnInit {
 
-  constructor(private dataStorageService:DataStorageService) { }
+  constructor(private dataStorageService:DataStorageService,
+             ) { }
 
-  //selectedRecipe:Recipe;
+  // selectedRecipe:Recipe;
 
 
   ngOnInit(): void {
@@ -21,8 +22,8 @@ export class RecipesComponent implements OnInit {
     //     this.selectedRecipe = recipe;
     // })
 
-
   }
+
 
 
 
