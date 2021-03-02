@@ -13,8 +13,8 @@
 }
 
 .item-pic{
-  width:60px;
-  height: 60px;
+  width:4.5vw;
+  height: 4.5vw;
   border-radius: 50%;
   display: inline;
   margin: 5%;
@@ -27,9 +27,12 @@ span{
 
 .name{
   color:#5b2975;
-  font-size: 16px;
+  font-size: 1.2vw;
 }
 
 .active{
    background-color: rgb(231, 230, 230);
 }
+
+h3{font-size: 1.3vw;}
+h5{font-size: 0.99vw;}

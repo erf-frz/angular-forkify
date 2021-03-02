@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Recipe } from '../recipe.model';
@@ -9,7 +9,7 @@ import { RecipesService } from '../recipes.service';
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit, OnDestroy {
+export class RecipeListComponent implements OnInit  {
 
   constructor(private recipesService:RecipesService,
               private dataStorageService:DataStorageService) { }
@@ -34,9 +34,6 @@ export class RecipeListComponent implements OnInit, OnDestroy {
      }
   }
 
-  ngOnDestroy(){
-    //this.subscription.unsubscribe();
-  }
 
   recipeSelected(id:string){
     this.dataStorageService.getRecipe(id).subscribe(recipe =>{

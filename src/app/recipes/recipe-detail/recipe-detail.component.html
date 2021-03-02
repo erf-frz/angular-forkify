@@ -6,7 +6,7 @@
     <img [src]="recipe.image_url" [alt]="recipe.title" class="recipe-image">
     <button mat-icon-button class="like-btn" title="Like" #likeBtn
     (click)="onSaveRecipe()">
-      <mat-icon>favorite_border</mat-icon>
+      <mat-icon [inline]="true">favorite</mat-icon>
     </button>
 
   </div>
