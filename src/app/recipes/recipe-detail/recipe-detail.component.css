@@ -124,5 +124,7 @@ mat-icon:hover
   color:black;
 }
 
-
+.animate__animated.animate__fadeIn{
+  --animate-duration:1s;
+}
 

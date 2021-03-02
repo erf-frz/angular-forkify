@@ -4,14 +4,15 @@
   margin-top: 3%;
   margin-left: 3%;
   color: rgb(255, 255, 255);
+  margin-right: 2%;
 }
 
 .ingredient{
   margin-right: 1%;
-  width: 300px;
+  width: 21.9vw;
   outline:  rgb(41, 180, 214);
-  padding:5px;
-  font-size: 18px;
+  padding:0.36vw;
+  font-size: 1.3vw;
 }
 
 
@@ -21,9 +22,9 @@
 }
 
 .btn{
-  width: 80px;
-  padding:8px;
-  font-size: 18px;
+  width: 5.84vw;
+  padding:.58vw;
+  font-size: 1.3vw;
   border-radius: 5%;
   margin-right: 2%;
   border-radius: 5%;
@@ -46,6 +47,7 @@
 label{
   margin-right: 1%;
   margin-left: 1%;
+  font-size: 1.3vw;
 }
 
 .amount{

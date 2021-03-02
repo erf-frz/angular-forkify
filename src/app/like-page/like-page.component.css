@@ -6,7 +6,8 @@
 h1{
   padding-left:36%;
   margin-top:4%;
-  margin-bottom: 4%
+  margin-bottom: 4%;
+  font-size:2.65vw
 }
 
 .btns{
@@ -17,6 +18,10 @@ h1{
 
 .home{
   margin-right: 0.5%;
+}
+
+.btn{
+  font-size: 1.8vw;
 }
 
 .btn:hover{
@@ -44,3 +49,5 @@ li{
 app-recipe-item:hover{
   cursor: pointer;
 }
+
+
