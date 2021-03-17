@@ -1,6 +1,7 @@
-import { Component,  OnInit, ViewChild } from '@angular/core';
+import { Component,  OnDestroy,  OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { RecipesService } from '../recipes/recipes.service';
 import { DataStorageService } from '../shared/data-storage.service';
 
@@ -9,12 +10,13 @@ import { DataStorageService } from '../shared/data-storage.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, OnDestroy{
 
-  constructor(private dataStorageService:DataStorageService,
+  constructor(
+    private dataStorageService:DataStorageService,
     private recipeService:RecipesService,
-              private router:Router,
-              private route:ActivatedRoute) { }
+    private router:Router,
+    private route:ActivatedRoute) { }
 
 
   queryDisplayed = false;
@@ -27,6 +29,8 @@ export class HeaderComponent implements OnInit{
   foodSearchItem: FormControl;
 
   errorMessage:string = null;
+
+  searchRecipeSubscription$$:Subscription;
 
 
   ngOnInit() {
@@ -48,12 +52,12 @@ export class HeaderComponent implements OnInit{
 
 
   onSubmit(){
-    if(localStorage.getItem('recipes')){
+     if(localStorage.getItem('recipes')){
       localStorage.removeItem('recipes');
-    }
+
     const food = this.searchForm.value.foodItem;
-    if(food !==null){
-    this.dataStorageService.searchRecipes(food)
+    if(food){
+    this.searchRecipeSubscription$$ = this.dataStorageService.searchRecipes(food)
     .subscribe(recipes =>{
        console.log(recipes);
       this.recipeService.setRecipes(recipes);
@@ -62,14 +66,13 @@ export class HeaderComponent implements OnInit{
           console.log(error);
           this.errorMessage = 'Please select a food item from the bellow list.';
           error.error = this.errorMessage;
-
        });
     this.searchForm.reset();
     this.router.navigate(['recipes'],{relativeTo:this.route});
     }
 
   }
-
+  }
 
   displayQueries(){
     this.queryDisplayed = true;
@@ -93,6 +96,14 @@ export class HeaderComponent implements OnInit{
 
   onHandleError(){
     this.errorMessage = null;
+  }
+
+
+  ngOnDestroy(): void {
+    if(this.searchRecipeSubscription$$){
+        this.searchRecipeSubscription$$.unsubscribe();
+    }
+
   }
 
 

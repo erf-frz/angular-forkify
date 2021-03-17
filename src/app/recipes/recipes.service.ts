@@ -7,6 +7,9 @@ import { Recipe } from './recipe.model';
 export class RecipesService{
   constructor(private shoppingListService:ShoppingListService){}
 
+  loadingSubject = new Subject<boolean>();
+  likedRecipesSubject = new Subject<Recipe[]>();
+
    private recipes:Recipe[] = [];
 
   recipesChanged = new Subject<Recipe[]>();
@@ -31,18 +34,32 @@ export class RecipesService{
  }
 
  addLikedRecipe(recipe:Recipe){
-   if(this.likedRecipes.find( el => el.recipe_id === recipe.recipe_id)){
+   const likedRecipe = this.likedRecipes.find( el => el.title === recipe.title);
+   if(likedRecipe){
      // if the recipe is already saved
-     const savedRecipeIndex = this.likedRecipes.findIndex(el =>el.recipe_id === recipe.recipe_id);
+     const savedRecipeIndex = this.likedRecipes.findIndex(el =>el.title === recipe.title);
      this.likedRecipes.splice(savedRecipeIndex,1);
+     recipe.isLiked = false;
    }else{
      //if the recipe is not saved yet
+      recipe.isLiked = true;
       this.likedRecipes.push(recipe);
    }
+   this.likedRecipesSubject.next(this.likedRecipes);
+   localStorage.setItem('likedRecipes',JSON.stringify(this.likedRecipes));
  }
 
  getLikedRecipes(){
-   return this.likedRecipes.slice();
+   return this.likedRecipesSubject;
+ }
+
+ setLoadingStatus(isLoading: boolean){
+    this.loadingSubject.next(isLoading);
+ }
+
+ getLoadingStatus(){
+   return this.loadingSubject;
  }
 
 }
+

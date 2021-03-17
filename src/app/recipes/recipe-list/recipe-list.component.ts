@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component,   OnDestroy,   OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Recipe } from '../recipe.model';
@@ -9,14 +9,15 @@ import { RecipesService } from '../recipes.service';
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.css']
 })
-export class RecipeListComponent implements OnInit  {
+export class RecipeListComponent implements OnInit, OnDestroy  {
 
-  constructor(private recipesService:RecipesService,
-              private dataStorageService:DataStorageService) { }
+  constructor(
+    private recipesService:RecipesService,
+    private dataStorageService:DataStorageService) { }
 
   recipes: Recipe[] = [];
-  subscription:Subscription;
-
+  getRecipeSubscription$$: Subscription;
+  recipesChangedSubscription$$: Subscription;
   isLoading = false;
 
   ngOnInit() {
@@ -24,7 +25,7 @@ export class RecipeListComponent implements OnInit  {
     const recipes = JSON.parse(localStorage.getItem('recipes'));
      if(recipes === null){
         this.isLoading = true;
-       this.recipesService.recipesChanged.subscribe((recipes:Recipe[]) => {
+        this.getRecipeSubscription$$ = this.recipesService.recipesChanged.subscribe((recipes:Recipe[]) => {
             this.isLoading = false;
              this.recipes = recipes;
           });
@@ -36,11 +37,23 @@ export class RecipeListComponent implements OnInit  {
 
 
   recipeSelected(id:string){
-    this.dataStorageService.getRecipe(id).subscribe(recipe =>{
-    //console.log(recipe);
-    this.dataStorageService.selectedRecipe.next(recipe);
+    this.dataStorageService.selectedRecipe.next(null);
+    this.recipesService.setLoadingStatus(true);
+    this.recipesChangedSubscription$$ = this.dataStorageService.getRecipe(id).subscribe(recipe =>{
+      this.recipesService.setLoadingStatus(false);
+      this.dataStorageService.selectedRecipe.next(recipe);
+      
     });
 
+  }
+
+    ngOnDestroy(): void {
+    if(this.getRecipeSubscription$$){
+      this.getRecipeSubscription$$.unsubscribe();
+    }
+    if(this.recipesChangedSubscription$$){
+      this.recipesChangedSubscription$$.unsubscribe();
+    }
   }
 
 

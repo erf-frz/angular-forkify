@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import {  Injectable } from '@angular/core';
 import { Recipe } from '../recipes/recipe.model';
-import { RecipesService } from '../recipes/recipes.service';
 import {  map } from 'rxjs/Operators';
 import { Subject} from 'rxjs';
 
@@ -15,26 +14,12 @@ selectedRecipe = new Subject<Recipe>();
 
 errorMessage:string = null;
 
-  constructor(private http:HttpClient,
-              private recipesService:RecipesService){}
+  constructor(private http:HttpClient){}
 
 
   searchRecipes(query:string){
      return this.http.get<{count:number, recipes:Recipe[]}>('https://forkify-api.herokuapp.com/api/search?q='+ query)
-     .pipe(map(recipes =>{
-       return recipes.recipes;
-     }))
-    //  .subscribe(recipes =>{
-    //    console.log(recipes);
-    //   this.recipesService.setRecipes(recipes);
-    //    localStorage.setItem('recipes', JSON.stringify(recipes));
-    //    } , error =>{
-    //       console.log(error);
-    //       this.errorMessage = 'Please select a food item from the bellow list.';
-    //       error.error = this.errorMessage;
-
-    //    });
-
+     .pipe(map(recipes => recipes.recipes));
 
  }
 

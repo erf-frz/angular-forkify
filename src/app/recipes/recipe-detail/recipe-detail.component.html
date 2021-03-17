@@ -1,12 +1,14 @@
 <div class="loading-holder" *ngIf="isLoading">
   <app-loading-spinner></app-loading-spinner>
 </div>
-<div class="wrapper" *ngIf="recipe!==undefined">
+<div class="wrapper" *ngIf="isRecipeExist">
   <div class="image">
     <img [src]="recipe.image_url" [alt]="recipe.title" class="recipe-image">
     <button mat-icon-button class="like-btn" title="Like" #likeBtn
     (click)="onSaveRecipe()">
-      <mat-icon [inline]="true">favorite</mat-icon>
+      <mat-icon [inline]="true"
+      [ngClass]="{'active':recipe.isliked===true}"
+      >favorite</mat-icon>
     </button>
 
   </div>

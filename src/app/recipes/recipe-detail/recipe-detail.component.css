@@ -128,3 +128,6 @@ mat-icon:hover
   --animate-duration:1s;
 }
 
+.active{
+  color:black;
+}
