@@ -13,10 +13,10 @@ import { DataStorageService } from '../shared/data-storage.service';
 export class HeaderComponent implements OnInit, OnDestroy{
 
   constructor(
-    private dataStorageService:DataStorageService,
-    private recipeService:RecipesService,
-    private router:Router,
-    private route:ActivatedRoute) { }
+              private dataStorageService:DataStorageService,
+              private recipeService:RecipesService,
+              private router:Router,
+              private route:ActivatedRoute) { }
 
 
   queryDisplayed = false;
@@ -52,11 +52,11 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
 
   onSubmit(){
-     if(localStorage.getItem('recipes')){
+    if(localStorage.getItem('recipes')){
       localStorage.removeItem('recipes');
-
+    }
     const food = this.searchForm.value.foodItem;
-    if(food){
+    if(food !==null){
     this.searchRecipeSubscription$$ = this.dataStorageService.searchRecipes(food)
     .subscribe(recipes =>{
        console.log(recipes);
@@ -66,13 +66,14 @@ export class HeaderComponent implements OnInit, OnDestroy{
           console.log(error);
           this.errorMessage = 'Please select a food item from the bellow list.';
           error.error = this.errorMessage;
+
        });
     this.searchForm.reset();
     this.router.navigate(['recipes'],{relativeTo:this.route});
     }
 
   }
-  }
+
 
   displayQueries(){
     this.queryDisplayed = true;
@@ -98,13 +99,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.errorMessage = null;
   }
 
-
-  ngOnDestroy(): void {
+ ngOnDestroy(): void {
     if(this.searchRecipeSubscription$$){
         this.searchRecipeSubscription$$.unsubscribe();
     }
-
   }
-
-
 }

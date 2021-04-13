@@ -127,7 +127,3 @@ mat-icon:hover
 .animate__animated.animate__fadeIn{
   --animate-duration:1s;
 }
-
-.active{
-  color:black;
-}

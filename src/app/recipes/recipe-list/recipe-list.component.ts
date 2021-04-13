@@ -1,4 +1,4 @@
-import { Component,   OnDestroy,   OnInit } from '@angular/core';
+import { Component,  OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Recipe } from '../recipe.model';
@@ -11,9 +11,8 @@ import { RecipesService } from '../recipes.service';
 })
 export class RecipeListComponent implements OnInit, OnDestroy  {
 
-  constructor(
-    private recipesService:RecipesService,
-    private dataStorageService:DataStorageService) { }
+  constructor(private recipesService:RecipesService,
+              private dataStorageService:DataStorageService) { }
 
   recipes: Recipe[] = [];
   getRecipeSubscription$$: Subscription;
@@ -21,7 +20,7 @@ export class RecipeListComponent implements OnInit, OnDestroy  {
   isLoading = false;
 
   ngOnInit() {
-
+    //the problem lies here. when we search for a new list, the recipes are stillcoming from the storage.
     const recipes = JSON.parse(localStorage.getItem('recipes'));
      if(recipes === null){
         this.isLoading = true;
@@ -42,12 +41,11 @@ export class RecipeListComponent implements OnInit, OnDestroy  {
     this.recipesChangedSubscription$$ = this.dataStorageService.getRecipe(id).subscribe(recipe =>{
       this.recipesService.setLoadingStatus(false);
       this.dataStorageService.selectedRecipe.next(recipe);
-      
     });
 
   }
 
-    ngOnDestroy(): void {
+  ngOnDestroy(){
     if(this.getRecipeSubscription$$){
       this.getRecipeSubscription$$.unsubscribe();
     }

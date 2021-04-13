@@ -91,6 +91,8 @@ export class ShoppingListService{
     });
    //console.log(newIngredients);
    return newIngredients;
+
+
  }
 
 

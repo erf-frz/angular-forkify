@@ -11,8 +11,7 @@ import { ShoppingListService } from './shopping-list.service';
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
 
-  constructor(
-              private shoppingListService:ShoppingListService,
+  constructor(private shoppingListService:ShoppingListService,
               private router:Router) { }
 
   ingredients:ModifiedIngredient[] = [];
@@ -23,6 +22,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(){
+    // if(localStorage.getItem('ingredients')){
+    //  this.ingredients = JSON.parse(localStorage.getItem('ingredients'));
+    // }
+    // else{}
         this.ingredients = this.shoppingListService.getIngredients();
         this.shoppingListService.ingredientsChanged.subscribe(
         ( ingredients:ModifiedIngredient[]) => {

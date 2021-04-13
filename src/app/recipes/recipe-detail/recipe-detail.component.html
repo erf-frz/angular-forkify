@@ -6,9 +6,7 @@
     <img [src]="recipe.image_url" [alt]="recipe.title" class="recipe-image">
     <button mat-icon-button class="like-btn" title="Like" #likeBtn
     (click)="onSaveRecipe()">
-      <mat-icon [inline]="true"
-      [ngClass]="{'active':recipe.isliked===true}"
-      >favorite</mat-icon>
+      <mat-icon [inline]="true">favorite</mat-icon>
     </button>
 
   </div>

@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
 import { Recipe } from '../recipes/recipe.model';
 import { RecipesService } from '../recipes/recipes.service';
 import { DataStorageService } from '../shared/data-storage.service';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-like-page',
@@ -12,23 +12,20 @@ import { DataStorageService } from '../shared/data-storage.service';
 })
 export class LikePageComponent implements OnInit, OnDestroy {
 
-  getLikedRecipesSubscription$$: Subscription;
+  constructor( private router:Router,
+                private recipeService:RecipesService,
+                private dataStorageService:DataStorageService) { }
+
+   getLikedRecipesSubscription$$: Subscription;
+   recipesChangedSubscription$$:Subscription;
   likedRecipes$: Observable<Recipe[]>;
-
-  constructor(
-    private router:Router,
-    private recipeService:RecipesService,
-    private dataStorageService:DataStorageService) { }
-
-  ngOnDestroy(): void {
-    this.getLikedRecipesSubscription$$.unsubscribe();
-  }
 
   recipes:Recipe[] = [];
   recipeDetailDisplayed = false;
 
   ngOnInit() {
-    this.getLikedRecipesSubscription$$ = this.recipeService.likedRecipesSubject.subscribe(recipes => this.recipes = recipes);
+    this.getLikedRecipesSubscription$$ = this.recipeService.likedRecipesSubject.subscribe(
+      recipes => this.recipes = recipes);
 
     if(localStorage.getItem('likedRecipes')){
       this.recipes = JSON.parse(localStorage.getItem('likedRecipes'));
@@ -36,11 +33,12 @@ export class LikePageComponent implements OnInit, OnDestroy {
   }
 
   recipeSelected(id:string){
-    this.dataStorageService.getRecipe(id).subscribe(recipe =>{
-    this.dataStorageService.selectedRecipe.next(recipe);
+    this.recipesChangedSubscription$$ =this.dataStorageService.getRecipe(id).subscribe(
+      recipe =>{
+        this.dataStorageService.selectedRecipe.next(recipe);
     });
-
   }
+
 
   toShoppingList(){
     this.router.navigate(['/shopping-list']);
@@ -50,5 +48,12 @@ export class LikePageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
+  ngOnDestroy(){
+    if(this.getLikedRecipesSubscription$$){
+        this.getLikedRecipesSubscription$$.unsubscribe();
+    }
+    this.recipesChangedSubscription$$.unsubscribe();
+
+  }
 
 }

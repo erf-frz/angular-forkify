@@ -10,6 +10,5 @@ export class Recipe{
     public social_rank:number,
     public source_url:string,
     public title:string,
-    public isLiked?:boolean
     ){}
 }

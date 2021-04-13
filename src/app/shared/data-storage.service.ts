@@ -12,15 +12,16 @@ export class DataStorageService{
 
 selectedRecipe = new Subject<Recipe>();
 
-errorMessage:string = null;
-
-  constructor(private http:HttpClient){}
+  constructor(
+    private http:HttpClient
+    ){}
 
 
   searchRecipes(query:string){
      return this.http.get<{count:number, recipes:Recipe[]}>('https://forkify-api.herokuapp.com/api/search?q='+ query)
-     .pipe(map(recipes => recipes.recipes));
-
+      .pipe(
+        map(recipes =>recipes.recipes)
+      );
  }
 
  getRecipe(id:string){

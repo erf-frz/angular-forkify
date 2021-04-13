@@ -5,7 +5,9 @@ import { Recipe } from './recipe.model';
 
 @Injectable({providedIn:'root'})
 export class RecipesService{
-  constructor(private shoppingListService:ShoppingListService){}
+  constructor(
+             private shoppingListService:ShoppingListService){}
+
 
   loadingSubject = new Subject<boolean>();
   likedRecipesSubject = new Subject<Recipe[]>();
@@ -39,10 +41,8 @@ export class RecipesService{
      // if the recipe is already saved
      const savedRecipeIndex = this.likedRecipes.findIndex(el =>el.title === recipe.title);
      this.likedRecipes.splice(savedRecipeIndex,1);
-     recipe.isLiked = false;
    }else{
      //if the recipe is not saved yet
-      recipe.isLiked = true;
       this.likedRecipes.push(recipe);
    }
    this.likedRecipesSubject.next(this.likedRecipes);
@@ -62,4 +62,3 @@ export class RecipesService{
  }
 
 }
-
