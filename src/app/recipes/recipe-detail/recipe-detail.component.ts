@@ -5,6 +5,7 @@ import { DataStorageService } from 'src/app/shared/data-storage.service';
 import { Ingredient } from '../ingredient.model';
 import {  Recipe } from '../recipe.model';
 import { RecipesService } from '../recipes.service';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -12,10 +13,7 @@ import { RecipesService } from '../recipes.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-
-  getLoadingStatusSubscription$$: Subscription;
-  selectedRecipeSubscription$$: Subscription;
-  paramsSubscription$$: Subscription;
+  subs = new SubSink();
   recipe:Recipe;
   isRecipeExist = false;
   id:string;
@@ -32,26 +30,24 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
               private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.getLoadingStatusSubscription$$ = this.recipeService.getLoadingStatus()
-        .subscribe(isLoading => this.isLoading = isLoading);
-    // if(localStorage.getItem('recipe')){
-    //   this.isLoading = false;
-    //   this.recipe = JSON.parse(localStorage.getItem('recipe'));
-    // }
-
-    this.selectedRecipeSubscription$$ = this.dataStorageService.selectedRecipe.subscribe(recipe =>{
+    this.subs.sink = this.recipeService.getLoadingStatus().subscribe(isLoading => this.isLoading = isLoading);
+    if(localStorage.getItem('recipe')){
       this.isLoading = false;
+      this.recipe = JSON.parse(localStorage.getItem('recipe'));
+    }
 
+    this.subs.sink = this.dataStorageService.selectedRecipe.subscribe(recipe =>{
+      this.isLoading = false;
+      
       if(!recipe){
           return this.isRecipeExist = false;
       } else {
         this.isRecipeExist = true;
         this.recipe = recipe;
-        //localStorage.setItem('recipe',JSON.stringify(this.recipe));
-        // this.paramsSubscription$$ =
-        this.route.params.subscribe((params:Params)=>{
-          this.recipe.recipe_id = params['id'];
-        });
+        localStorage.setItem('recipe',JSON.stringify(this.recipe));
+        // this.subs.sink = this.route.params.subscribe((params:Params)=>{
+        //   this.recipe.recipe_id = params['id'];
+        // });
       }
     });
 
@@ -59,9 +55,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(){
-    this.getLoadingStatusSubscription$$.unsubscribe();
-    this.selectedRecipeSubscription$$.unsubscribe();
-    //this.paramsSubscription$$.unsubscribe();
+    this.subs.unsubscribe();
   }
 
   onAddToSL(){

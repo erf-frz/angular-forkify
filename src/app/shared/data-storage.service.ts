@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {  Injectable } from '@angular/core';
 import { Recipe } from '../recipes/recipe.model';
+import { RecipesService } from '../recipes/recipes.service';
 import {  map } from 'rxjs/Operators';
 import { Subject} from 'rxjs';
 
@@ -12,8 +13,11 @@ export class DataStorageService{
 
 selectedRecipe = new Subject<Recipe>();
 
+errorMessage:string = null;
+
   constructor(
-    private http:HttpClient
+    private http:HttpClient,
+    private recipesService:RecipesService
     ){}
 
 
@@ -22,6 +26,18 @@ selectedRecipe = new Subject<Recipe>();
       .pipe(
         map(recipes =>recipes.recipes)
       );
+    //  .subscribe(recipes =>{
+    //    console.log(recipes);
+    //   this.recipesService.setRecipes(recipes);
+    //    localStorage.setItem('recipes', JSON.stringify(recipes));
+    //    } , error =>{
+    //       console.log(error);
+    //       this.errorMessage = 'Please select a food item from the bellow list.';
+    //       error.error = this.errorMessage;
+
+    //    });
+
+
  }
 
  getRecipe(id:string){

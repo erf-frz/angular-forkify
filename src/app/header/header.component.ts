@@ -1,9 +1,9 @@
 import { Component,  OnDestroy,  OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { RecipesService } from '../recipes/recipes.service';
 import { DataStorageService } from '../shared/data-storage.service';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
               private router:Router,
               private route:ActivatedRoute) { }
 
-
+  subs = new SubSink();
   queryDisplayed = false;
 
   searchForm:FormGroup;
@@ -29,8 +29,6 @@ export class HeaderComponent implements OnInit, OnDestroy{
   foodSearchItem: FormControl;
 
   errorMessage:string = null;
-
-  searchRecipeSubscription$$:Subscription;
 
 
   ngOnInit() {
@@ -57,7 +55,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     }
     const food = this.searchForm.value.foodItem;
     if(food !==null){
-    this.searchRecipeSubscription$$ = this.dataStorageService.searchRecipes(food)
+
+   this.subs.sink = this.dataStorageService.searchRecipes(food)
     .subscribe(recipes =>{
        console.log(recipes);
       this.recipeService.setRecipes(recipes);
@@ -99,9 +98,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.errorMessage = null;
   }
 
- ngOnDestroy(): void {
-    if(this.searchRecipeSubscription$$){
-        this.searchRecipeSubscription$$.unsubscribe();
-    }
+  ngOnDestroy(){
+    this.subs.unsubscribe();
   }
+
 }

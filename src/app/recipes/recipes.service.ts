@@ -5,10 +5,7 @@ import { Recipe } from './recipe.model';
 
 @Injectable({providedIn:'root'})
 export class RecipesService{
-  constructor(
-             private shoppingListService:ShoppingListService){}
-
-
+  constructor(private shoppingListService:ShoppingListService){}
   loadingSubject = new Subject<boolean>();
   likedRecipesSubject = new Subject<Recipe[]>();
 
@@ -36,17 +33,19 @@ export class RecipesService{
  }
 
  addLikedRecipe(recipe:Recipe){
-   const likedRecipe = this.likedRecipes.find( el => el.title === recipe.title);
+  const likedRecipesString = localStorage.getItem('likedRecipes');
+  const likedRecipes = likedRecipesString ? JSON.parse(likedRecipesString) as Recipe[] : [];
+   const likedRecipe = likedRecipes.find( el => el.title === recipe.title);
    if(likedRecipe){
      // if the recipe is already saved
-     const savedRecipeIndex = this.likedRecipes.findIndex(el =>el.title === recipe.title);
-     this.likedRecipes.splice(savedRecipeIndex,1);
+     const savedRecipeIndex = likedRecipes.findIndex(el =>el.title === recipe.title);
+     likedRecipes.splice(savedRecipeIndex,1);
    }else{
      //if the recipe is not saved yet
-      this.likedRecipes.push(recipe);
+      likedRecipes.push(recipe);
    }
-   this.likedRecipesSubject.next(this.likedRecipes);
-   localStorage.setItem('likedRecipes',JSON.stringify(this.likedRecipes));
+   this.likedRecipesSubject.next(likedRecipes);
+   localStorage.setItem('likedRecipes',JSON.stringify(likedRecipes));
  }
 
  getLikedRecipes(){
